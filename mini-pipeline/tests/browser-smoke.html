@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mini Pipeline — manual smoke checklist</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 1.5rem auto; line-height: 1.45; }
+    code { background: #eee; padding: 0.1em 0.35em; border-radius: 4px; }
+    h1 { font-size: 1.15rem; }
+    ul { margin-top: 0.35rem; }
+  </style>
+</head>
+<body>
+  <h1>Mini Pipeline — browser smoke (manual)</h1>
+  <p>Serve the parent folder (e.g. <code>python3 -m http.server 8080</code>) and open <code>index.html</code>. No npm dependencies for this checklist.</p>
+  <ul>
+    <li><strong>Main controls</strong>: add Process/File, link, delete selection, load sample, load JSON, Save/Export — all above the graph.</li>
+    <li><strong>Graph controls</strong>: only Reset zoom (fit graph + links + margin in view) and Cleanup next to the canvas.</li>
+    <li>Export downloads <code>mini-pipeline.json</code>; re-load it via Load JSON.</li>
+    <li>Cleanup uses a layered layout from links (simple chains read Process→File→Process) without changing labels or link count; export includes coordinates and reload restores layout.</li>
+  </ul>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "processes": [
+    { "id": "ingest", "label": "Raw ingest", "detail": "Landing zone" },
+    { "id": "clean", "label": "Clean & validate", "detail": "Schema checks" },
+    { "id": "features", "label": "Feature build", "detail": "Derived columns" },
+    { "id": "train", "label": "Train model", "detail": "Offline job" },
+    { "id": "report", "label": "Report", "detail": "Summary artifact" }
+  ],
+  "files": [
+    { "id": "f-events", "label": "events.jsonl", "detail": "" },
+    { "id": "f-feat", "label": "features.parquet", "detail": "" },
+    { "id": "f-train", "label": "training_set.parquet", "detail": "" },
+    { "id": "f-out", "label": "model.pkl + metrics.json", "detail": "" }
+  ],
+  "links": [
+    { "processId": "ingest", "fileId": "f-events" },
+    { "processId": "clean", "fileId": "f-events" },
+    { "processId": "clean", "fileId": "f-feat" },
+    { "processId": "features", "fileId": "f-feat" },
+    { "processId": "features", "fileId": "f-train" },
+    { "processId": "train", "fileId": "f-train" },
+    { "processId": "train", "fileId": "f-out" },
+    { "processId": "report", "fileId": "f-out" }
+  ]
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Pipeline Diagram Maker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <h1>Mini Pipeline Diagram Maker</h1>
+      <p class="tagline">Local bipartite diagram — <strong>Processes</strong> (circles) and <strong>Files</strong> (rectangles), linked only across partitions. No execution, no cloud.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="main-controls toolbar" data-testid="main-controls" aria-label="Main diagram controls">
+      <div class="toolbar-row">
+        <label class="field">
+          <span class="field-label">New Process label</span>
+          <input type="text" id="new-process-label" placeholder="e.g. Ingest" autocomplete="off" />
+        </label>
+        <button type="button" id="btn-add-process" class="btn btn-primary">Add Process</button>
+        <label class="field">
+          <span class="field-label">New File label</span>
+          <input type="text" id="new-file-label" placeholder="e.g. data.parquet" autocomplete="off" />
+        </label>
+        <button type="button" id="btn-add-file" class="btn btn-primary">Add File</button>
+      </div>
+
+      <div class="toolbar-row toolbar-row--edge">
+        <label class="field">
+          <span class="field-label">Process</span>
+          <select id="link-process" aria-label="Process for new link"></select>
+        </label>
+        <label class="field">
+          <span class="field-label">File</span>
+          <select id="link-file" aria-label="File for new link"></select>
+        </label>
+        <button type="button" id="btn-add-link" class="btn">Add link</button>
+      </div>
+
+      <div class="toolbar-row">
+        <button type="button" id="btn-delete-selection" class="btn btn-danger" disabled>Delete selection</button>
+      </div>
+
+      <div class="toolbar-row">
+        <button type="button" id="btn-load-sample" class="btn">Load sample</button>
+        <button type="button" id="btn-pick-file" class="btn">Load JSON file…</button>
+        <button type="button" id="btn-save-export" class="btn btn-primary">Save / Export JSON…</button>
+        <input type="file" id="file-json" accept="application/json,.json" hidden />
+      </div>
+
+      <p class="status" id="status-msg" role="status" aria-live="polite"></p>
+    </section>
+
+    <div class="workspace">
+      <div class="canvas-column">
+        <section class="graph-controls" data-testid="graph-controls" aria-label="Graph view controls">
+          <div class="graph-controls-inner">
+            <span class="graph-controls-label">Graph</span>
+            <button type="button" id="btn-reset-zoom" class="btn">Reset zoom</button>
+            <button type="button" id="btn-cleanup" class="btn">Cleanup</button>
+          </div>
+        </section>
+
+        <section class="canvas-wrap" aria-label="Graph visualization">
+          <svg id="graph-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bipartite pipeline graph" tabindex="0"></svg>
+          <p class="canvas-hint">
+            Drag Processes or Files to reposition; lines stay attached.
+            Hold <kbd>Ctrl</kbd> and scroll to zoom.
+            <kbd>Delete</kbd> / <kbd>Backspace</kbd> removes the selection (Process, File, or link).
+          </p>
+        </section>
+      </div>
+
+      <aside class="inspect" aria-label="Selection details">
+        <h2>Selection</h2>
+        <div id="inspect-empty" class="inspect-empty">
+          Select a Process, File, or link in the graph.
+        </div>
+        <div id="inspect-body" hidden>
+          <dl class="inspect-dl">
+            <dt>Kind</dt><dd id="inspect-kind"></dd>
+            <dt>Id</dt><dd id="in-id"></dd>
+            <dt>Label</dt><dd id="in-label"></dd>
+            <dt>Detail</dt><dd id="in-detail"></dd>
+          </dl>
+          <div id="inspect-conn-block">
+            <h3>Connections</h3>
+            <ul id="inspect-connections" class="inspect-list"></ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="graph-geometry.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
